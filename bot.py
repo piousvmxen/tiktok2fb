@@ -29,9 +29,9 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, MessageHandler, ContextTypes, filters
 
 # ---- Configuration (set these as environment variables) ----
-TELEGRAM_BOT_TOKEN = os.environ.get("8854590902:AAFPPkzmPvH1w2tRkxPCgMPEsPlfU2ZeKGw", "")
-FACEBOOK_PAGE_ID = os.environ.get("1234475776407328", "")
-FACEBOOK_PAGE_ACCESS_TOKEN = os.environ.get("EAAXZCFzjMzagBRy8YFhyjVQ3MPDC4iZA2kCRYIJzH2ixFTZB9aFBNMb4CRZBIDcy2syM7jB19WVXogqIrw5SF2MihkFMXWa7144w8ZC64p9glPB0Nmxkper19KvC4lwdK19iTy7ncJSyBohh7USkY6czyhvCkgbmM9YiyP4qDZCIp1Vvp2MFfvnT8XUIJ2KcvcAeIGx9XYWwXbxNNz76rzh6BI", "")
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+FACEBOOK_PAGE_ID = os.environ.get("FACEBOOK_PAGE_ID", "")
+FACEBOOK_PAGE_ACCESS_TOKEN = os.environ.get("FACEBOOK_PAGE_ACCESS_TOKEN", "")
 
 TIKTOK_URL_PATTERN = re.compile(r"(https?://)?(www\.|vm\.|vt\.)?tiktok\.com/\S+")
 
