@@ -19,7 +19,7 @@ import re
 import shutil
 import logging
 import tempfile
-import subprocess
+
 from pathlib import Path
 
 import requests
@@ -77,26 +77,7 @@ def download_tiktok(url: str, out_dir: Path) -> tuple[Path, str]:
     raise last_error
 
 
-def faststart_remux(video_path: Path) -> Path:
-    """Remux an MP4 with the moov atom at the front (+faststart), keeping
-    ALL streams (video and audio) via an explicit -map 0.
-    """
-    fixed_path = video_path.with_name(video_path.stem + "_fixed.mp4")
-    result = subprocess.run(
-        [
-            "ffmpeg", "-y",
-            "-i", str(video_path),
-            "-map", "0",
-            "-c", "copy",
-            "-movflags", "+faststart",
-            str(fixed_path),
-        ],
-        capture_output=True,
-        text=True,
-    )
-    if result.returncode != 0 or not fixed_path.exists():
-        raise RuntimeError(f"ffmpeg remux failed: {result.stderr[-2000:]}")
-    return fixed_path
+
 
 
 def post_to_facebook(video_path: Path, description: str = "") -> str:
@@ -132,7 +113,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     tmp_dir = tempfile.mkdtemp(prefix="tiktok2fb_")
     try:
         video_path, title = download_tiktok(tiktok_url, Path(tmp_dir))
-        video_path = faststart_remux(video_path)
+       
     except Exception as e:
         logger.exception("Download failed")
         shutil.rmtree(tmp_dir, ignore_errors=True)
